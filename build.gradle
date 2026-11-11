@@ -1,0 +1,43 @@
+buildscript {
+    repositories {
+        maven { url = 'https://nexus.gtnewhorizons.com/repository/public/' }
+        maven { url = 'https://maven.minecraftforge.net/' }
+        gradlePluginPortal()
+        mavenCentral()
+    }
+    dependencies {
+        // версию RetroFuturaGradle задаёт build.sh (-PrfgVersion)
+        classpath "com.gtnewhorizons.retrofuturagradle:com.gtnewhorizons.retrofuturagradle.gradle.plugin:${project.findProperty('rfgVersion') ?: '+'}"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'com.gtnewhorizons.retrofuturagradle'
+
+version = '3.0'
+group = 'com.fpickup'
+
+base {
+    archivesName = 'fpickup-1.12.2'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+minecraft {
+    mcVersion = '1.12.2'
+    username = 'Developer'
+}
+
+repositories {
+    maven { url = 'https://maven.minecraftforge.net/' }
+    maven { url = 'https://nexus.gtnewhorizons.com/repository/public/' }
+    mavenCentral()
+}
